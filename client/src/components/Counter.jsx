@@ -1,41 +1,39 @@
-import React, { useContext, useState } from 'react';
-import { CounterContext } from '../reducer';
-import LoadingText from './atoms/LoadingText';
+import { useContext } from "react";
+import { ThemeContext } from "../Context/Context";
+
 
 const Counter = () => {
+    const theme = useContext(ThemeContext);
+    const darkMode = theme.state.darkmode;
 
-    const [counter, actions] = useState(CounterContext);
-    const [loading, setLoading] = useState({
-        up: false,
-        down: false,
-        reset: false
-    });
+    const switchBtn = () => {
+        if (darkMode) {
+            theme.dispatch({ type: 'light' });
+        } else {
+            theme.dispatch({ type: 'dark' });
+        }
+    }
 
-    const handleAction = action => {
-        if (action === actions.up) {
-            setLoading(prev => ({ ...prev, up: true }));
-            action().finally((prev) => setLoading({ ...prev, up: false }));
-        }
-        if (action === actions.down) {
-            setLoading((prev) => ({ ...prev, down: true }));
-            action().finally(() => setLoading(prev => ({ ...prev, down: false })));
-        }
-        if (action === actions.reset) {
-            setLoading(prev => ({ ...prev, reset: true }));
-            action().finally(() => setLoading(prev => ({ ...prev, reset: false })));
-        }
-    };
+    const themeStyle = {
+        display: 'flex',
+        justifyContent: "center",
+        flexDirection: 'column',
+        alignItems: "center",
+        background: `${darkMode ? 'black' : 'white'}`,
+        color: `${darkMode ? 'white' : 'black'}`,
+        height: '100vh',
+        width: '100vw',
+    }
 
     return (
-        <React.Fragment>
-            <h3>Count: {counter.count}</h3>
-            <button onClick={() => handleAction(actions.up)}>
-                <LoadingText isLoading={loading.up}>UP</LoadingText>
-            </button>
-            <button onClick={() => handleAction(actions.down)}>DOWN</button>
-            <button onClick={() => handleAction(actions.reset)}>RESET  </button>
-        </React.Fragment>
+        <div style={themeStyle} >
+            <h5>{darkMode ? "Hello Dark from 2049" : "Hello Light from 2049"}</h5>
+            <div style={{ padding: '1rem' }}>
+                <button onClick={switchBtn} >Light theme</button>
+                <button onClick={switchBtn} >Dark theme</button>
+            </div>
+        </div>
     )
-}
+};
 
-export default Counter
+export default Counter;
