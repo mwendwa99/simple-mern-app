@@ -27,10 +27,9 @@ const Counter = () => {
 
     return (
         <div style={themeStyle} >
-            <h5>{darkMode ? "Hello Dark from 2049" : "Hello Light from 2049"}</h5>
+            <h5>{darkMode ? "Hello from 2049 🌙" : "Hello from 2049 🌞"}</h5>
             <div style={{ padding: '1rem' }}>
-                <button onClick={switchBtn} >Light theme</button>
-                <button onClick={switchBtn} >Dark theme</button>
+                <button onClick={switchBtn} >Change Theme</button>
             </div>
         </div>
     )
