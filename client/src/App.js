@@ -1,22 +1,25 @@
-import React, { useContext, useEffect } from 'react';
-import { ThemeContext, AuthContext } from './Context/Context';
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import routes from './Config/routes';
 import './App.css';
-import Counter from './components/Counter';
 
 
 function App() {
 
-  // themes
-  const theme = useContext(ThemeContext);
-  const darkMode = theme.state.darkmode;
-
-  // authentication
-  const [authState, setAuthState] = useContext(AuthContext);
-
   return (
-    <div className="App">
-      <Counter darkMode={darkMode} />
-    </div>
+    <Router>
+      <Switch>
+        {
+          routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
+          ))
+        }
+      </Switch>
+    </Router>
   );
 }
 
