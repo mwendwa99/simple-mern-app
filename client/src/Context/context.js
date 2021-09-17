@@ -6,7 +6,6 @@ const AuthDispatchContext = createContext();
 
 // custom hooks so that we dont have to useContext in every component
 // throw error is context is used outside AuthProvider scope
-
 export const useAuthState = () => {
     const context = useContext(AuthStateContext);
     if (context === undefined) {
@@ -14,7 +13,6 @@ export const useAuthState = () => {
     }
     return context;
 }
-
 export const useAuthDispatch = () => {
     const context = useContext(AuthDispatchContext);
     if (context === undefined) {
@@ -22,7 +20,6 @@ export const useAuthDispatch = () => {
     }
     return context;
 }
-
 // custom provider for child components to handle user state
 export const AuthProvider = ({ children }) => {
     const [user, dispatch] = useReducer(AuthReducer, initialState);
